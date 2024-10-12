@@ -12,11 +12,11 @@ jobs:
       - name: Check Name Input
         id: check_name
         run: |
-          if [ -z "${{ github.event.inputs.name }}" ]; then
-            echo "Name input is required."
+          if (-not ${{ github.event.inputs.name }}) {
+            Write-Error "Name input is required."
             exit 1
-          fi
-          echo "Hello, ${{ github.event.inputs.name }}!"
+          }
+          Write-Host "Hello, ${{ github.event.inputs.name }}!"
       - run: node --version
       - run: npm --version
 

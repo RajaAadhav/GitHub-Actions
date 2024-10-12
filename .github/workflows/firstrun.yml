@@ -1,5 +1,6 @@
 name: Hello
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
     inputs:
       name:
         description: 'Your Name'

@@ -1,0 +1,63 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: Job_Artifact_and_Output/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('Job_Artifact_and_Output/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+        working-directory: Job_Artifact_and_Output
+      - name: Lint code
+        run: npm run lint
+        working-directory: Job_Artifact_and_Output
+      - name: Test code
+        run: npm run test
+        working-directory: Job_Artifact_and_Output
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Build website
+        run: npm run build
+        working-directory: Job_Artifact_and_Output
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: |
+            Job_Artifact_and_Output/dist
+            Job_Artifact_and_Output/package.json
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          echo "Deploying..."
+          # Add your deployment commands here

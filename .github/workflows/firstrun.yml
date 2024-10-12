@@ -1,9 +1,21 @@
 name: Hello
 on: workflow_dispatch
+    inputs:
+      name:
+        description: 'Your Name'
+        required: true
 jobs:
   first-job:
     runs-on: windows-latest
     steps:
+      - name: Check Name Input
+        id: check_name
+        run: |
+          if [ -z "${{ github.event.inputs.name }}" ]; then
+            echo "Name input is required."
+            exit 1
+          fi
+          echo "Hello, ${{ github.event.inputs.name }}!"
       - run: node --version
       - run: npm --version
 

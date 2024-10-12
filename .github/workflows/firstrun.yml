@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Your Name'
+        description: "Enter the name"
         required: true
 jobs:
   first-job:
@@ -12,12 +12,10 @@ jobs:
       - name: Check Name Input
         id: check_name
         run: |
-          if (-not ${{ github.event.inputs.name }}) {
+          if (-not "${{ github.event.inputs.name }}") {
             Write-Error "Name input is required."
             exit 1
           }
           Write-Host "Hello, ${{ github.event.inputs.name }}!"
       - run: node --version
       - run: npm --version
-
-    

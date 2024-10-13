@@ -65,7 +65,7 @@ jobs:
         with:
           name: dist-files
       - name: Output contents
-        run: ls -R ./Job_Artifact_and_Output
+        run: ls
 
       - name: Deploy
         run: |

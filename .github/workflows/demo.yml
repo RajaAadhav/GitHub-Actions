@@ -12,9 +12,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18.20.3'
       - name: Get code
         uses: actions/checkout@v3
+        with:
+          path: Job_Artifact_and_Output
+      - name: Check Node.js and npm versions
+        run: |
+          node -v
+          npm -v
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -39,9 +45,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18.20.3'
       - name: Get code
         uses: actions/checkout@v3
+        with:
+          path: Job_Artifact_and_Output
+      - name: Check Node.js and npm versions
+        run: |
+          node -v
+          npm -v
       - name: Build website
         run: npm run build
         working-directory: Job_Artifact_and_Output
@@ -60,4 +72,3 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploying..."
-      

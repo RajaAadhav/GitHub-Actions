@@ -52,8 +52,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: dist
-            #Job_Artifact_and_Output/dist
+          path: |
+            Job_Artifact_and_Output/dist
             Job_Artifact_and_Output/package.json
 
   deploy:

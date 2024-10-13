@@ -54,7 +54,7 @@ jobs:
           name: dist-files
           path: dist
             #Job_Artifact_and_Output/dist
-            # ob_Artifact_and_Output/package.json
+            Job_Artifact_and_Output/package.json
 
   deploy:
     needs: build

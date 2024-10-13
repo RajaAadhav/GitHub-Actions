@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
       - name: Get code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -37,16 +37,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
       - name: Get code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Build website
         run: npm run build
         working-directory: Job_Artifact_and_Output
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: dist-files
           path: |
@@ -60,4 +60,4 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploying..."
-          # Add your deployment commands here
+      

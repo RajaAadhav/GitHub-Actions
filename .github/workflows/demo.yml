@@ -9,31 +9,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.20.3'
       - name: Get code
         uses: actions/checkout@v3
-        with:
-          path: Job_Artifact_and_Output
       - name: Check Node.js and npm versions
         run: |
           node -v
           npm -v
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: Job_Artifact_and_Output/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('Job_Artifact_and_Output/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm ci
         working-directory: Job_Artifact_and_Output
+
       - name: Lint code
         run: npm run lint
         working-directory: Job_Artifact_and_Output
+
       - name: Test code
         run: npm run test
         working-directory: Job_Artifact_and_Output
@@ -42,21 +32,18 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.20.3'
       - name: Get code
         uses: actions/checkout@v3
-        with:
-          path: Job_Artifact_and_Output
+
       - name: Check Node.js and npm versions
         run: |
           node -v
           npm -v
+
       - name: Build website
         run: npm run build
         working-directory: Job_Artifact_and_Output
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
